@@ -40,7 +40,7 @@ Meer weten over het editen van (historische) gegevens over straten op Wikidata? 
 
 ## Straatnamen per plaats
 
-### [Haarlem](haarlem.csv)
+### Haarlem
 
 Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebruikt:
 
