@@ -10,4 +10,42 @@ Dit soort artificiële intelligentie is afhankelijk van data. Enerzijds kan AI d
 
 Vrijwel alle Nederlandse straten, uitgezonderd de zeer recent aangelegde straten en de straten waaraan geen adressen liggen, zijn te vinden op Wikidata. Daar kan je ook allerlei gegevens kwijt, zoals periode van bestaan, waar straten naar vernoemd zijn, coördinaten, indien hernoemd alle officiële namen, alternatieve namen,  etc. Maar Wikidata lijkt niet bedoeld om elke afkorting en (historische) spellingswijze op te slaan - vandaar de lijsten in deze repository.
 
-Historische informatie over straten is op Wikidata nog niet veel te vinden, maar het kan wel - [hier](https://github.com/mmmenno/linked-elo/tree/master/straten) leg ik uit hoe je dateringen, vernoemingen en relaties als 'opgegaan in', 'vervangen door' en 'onderdeel van' in Wikidata kunt noteren.
+Straatnamen zijn in Wikidata te vinden bij de volgende labels en properties:
+
+- Label (`skos:prefLabel`), gecombineerd met taal
+- Altlabel of 'Ook bekend als'(`skos:altLabel`), gecombineerd met taal
+- Officiële naam (`P1448`), bijvoorbeeld te gebruiken voor namen die bij raadsbesluit zijn vastgelegd
+- Naam (`P2561`), voor minder formeel vastgelegde namen (anders dan bij altlabels kan je hier bijvoorbeeld qualifiers als 'begindatum' en 'einddatum' kwijt)
+
+Via de [Wikidata sparql endpoint](https://query.wikidata.org/) kan je straatnamen, bijvoorbeeld per gemeente, opvragen en downloaden. De onderstaande query vraagt alle straatnamen binnen de gemeente Haarlem op:
+
+```
+SELECT ?item ?itemLabel ?altlabel ?officiallabel ?namelabel WHERE {
+  ?item wdt:P31 wd:Q79007 .
+  ?item wdt:P131 wd:Q9920 .
+  OPTIONAL{
+    ?item skos:altLabel ?altlabel
+  }
+  OPTIONAL{
+    ?item wdt:P1448 ?officiallabel
+  }
+  OPTIONAL{
+    ?item wdt:P2561 ?namelabel
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
+}
+```
+
+Meer weten over het editen van (historische) gegevens over straten op Wikidata? [Hier](https://github.com/mmmenno/linked-elo/tree/master/straten) leg ik uit hoe je dateringen, vernoemingen en relaties als 'opgegaan in', 'vervangen door' en 'onderdeel van' in Wikidata kunt noteren.
+
+## Straatnamen per plaats
+
+### [Haarlem](haarlem.csv)
+
+Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebruikt:
+
+- de [kaart van Nautz](https://github.com/mmmenno/nautz) uit 1829
+- de [straatnamenindex op de Puiboeken 1760-1813](https://geneaknowhow.net/script/dewit/haarlem-puiboeken.htm) van Willem Blok
+
+
+
