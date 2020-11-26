@@ -17,23 +17,33 @@ Straatnamen zijn in Wikidata te vinden bij de volgende labels en properties:
 - Officiële naam (`P1448`), bijvoorbeeld te gebruiken voor namen die bij raadsbesluit zijn vastgelegd
 - Naam (`P2561`), voor minder formeel vastgelegde namen (anders dan bij altlabels kan je hier bijvoorbeeld qualifiers als 'begindatum' en 'einddatum' kwijt)
 
-Via de [Wikidata sparql endpoint](https://query.wikidata.org/) kan je straatnamen, bijvoorbeeld per gemeente, opvragen en downloaden. De onderstaande query vraagt alle straatnamen binnen de gemeente Haarlem op:
+Via de [Wikidata sparql endpoint](https://query.wikidata.org/) kan je straatnamen, bijvoorbeeld per gemeente, opvragen en downloaden. De onderstaande query vraagt alle straatnamen binnen de gemeente Haarlem op, met coördinaten en eventuele begin- en eindjaren:
 
 ```
-SELECT ?item ?itemLabel ?altlabel ?officiallabel ?namelabel WHERE {
+SELECT ?item ?itemLabel ?altlabel ?officiallabel ?namelabel ?coords ?startjaar ?eindjaar WHERE {
   ?item wdt:P31 wd:Q79007 .
   ?item wdt:P131 wd:Q9920 .
+  ?item wdt:P625 ?coords .
   OPTIONAL{
-    ?item skos:altLabel ?altlabel
+    ?item wdt:P571 ?start .
+    bind(year(?start) as ?startjaar) .
   }
   OPTIONAL{
-    ?item wdt:P1448 ?officiallabel
+    ?item wdt:P576 ?eind .
+    bind(year(?eind) as ?eindjaar) .
   }
   OPTIONAL{
-    ?item wdt:P2561 ?namelabel
+    ?item skos:altLabel ?altlabel .
+  }
+  OPTIONAL{
+    ?item wdt:P1448 ?officiallabel .
+  }
+  OPTIONAL{
+    ?item wdt:P2561 ?namelabel .
   }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "nl,en". }
 }
+
 ```
 
 Meer weten over het editen van (historische) gegevens over straten op Wikidata? [Hier](https://github.com/mmmenno/linked-elo/tree/master/straten) leg ik uit hoe je dateringen, vernoemingen en relaties als 'opgegaan in', 'vervangen door' en 'onderdeel van' in Wikidata kunt noteren.
