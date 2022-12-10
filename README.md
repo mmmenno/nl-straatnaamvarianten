@@ -1,10 +1,6 @@
 # NL-straatnaamvarianten
 
-Deze repository bevat spellingsvarianten, afkortingen en alternatieve namen van Nederlandse straten, gekoppeld aan Wikidata items van die straten.
-
-Historische teksten komen in steeds grotere aantallen beschikbaar. Vrijwilligers transcriberen in talloze crowdsourceprojecten archiefstukken en de ontwikkelingen in de 'handwritten text recognition' staan verre van stil - het digitaal beschikbaar maken van hele archieven komt binnen bereik. De computer leert lezen, nu zou het mooi zijn als ze het gelezene ook leert 'begrijpen', bijvoorbeeld door 'named entities' (persoonsnamen, plaatsnamen, etc.) te herkennen. 
-
-Dit soort artificiële intelligentie is afhankelijk van data. Enerzijds kan AI dan patronen leren herkennen, bijvoorbeeld als het `laan` steeds afgekort ziet worden tot `l.`. Anderzijds heeft AI data nodig om `Noorder Amstell.` thuis te kunnen brengen als de in 1946 hernoemde `Churchilllaan`.
+Bij het thuisbrengen van (bijvoorbeeld met Named Entity Recognition gevonden) straatnamen zijn lijsten met naamvarianten en schrijfwijzes heel handig. Deze repository bevat (links naar) spellingsvarianten, afkortingen en alternatieve namen van Nederlandse straten, gekoppeld aan Wikidata items van die straten.
 
 ## Wikidata
 
@@ -20,8 +16,9 @@ Straatnamen zijn in Wikidata te vinden bij de volgende labels en properties:
 Via de [Wikidata sparql endpoint](https://query.wikidata.org/) kan je straatnamen, bijvoorbeeld per gemeente, opvragen en downloaden. De onderstaande query vraagt alle straatnamen binnen de gemeente Haarlem op, met coördinaten en eventuele begin- en eindjaren:
 
 ```
-SELECT ?item ?itemLabel ?altlabel ?officiallabel ?namelabel ?coords ?startjaar ?eindjaar WHERE {
-  ?item wdt:P31 wd:Q79007 .
+SELECT ?item ?itemLabel ?altlabel ?officiallabel ?namelabel ?coords ?startjaar ?eindjaar ?openbruimteLabel WHERE {
+  VALUES ?openbruimte { wd:Q79007 wd:Q174782 wd:Q574990 } # straat, plein
+  ?item wdt:P31 ?openbruimte .
   ?item wdt:P131 wd:Q9920 .
   ?item wdt:P625 ?coords .
   OPTIONAL{
@@ -50,6 +47,25 @@ Meer weten over het editen van (historische) gegevens over straten op Wikidata? 
 
 ## Straatnamen per plaats
 
+### Amsterdam
+
+Amsterdam is de vreemde eend in de bijt, want het heeft met [Adamlink](https://adamlink.nl/geo/streets/list) een eigen online stratenregister. Op de [data-pagina](https://adamlink.nl/data) is de hele dataset, inclusief naamvarianten, te downloaden als ttl.
+
+Die varianten (iig de meest recente weergave daarvan) zijn ook via [data.create.humanities.uva.nl](https://data.create.humanities.uva.nl/) op te vragen. De onderstaande query levert meer dan 12.000 naamvarianten op (even de offset zelf ophogen om ook de volgende 2.000+ schrijfwijzes te verkrijgen):
+
+```
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hg: <http://rdf.histograph.io/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?straat ?pref ?alt WHERE {
+  ?straat a hg:Street .
+  ?straat skos:prefLabel ?pref .
+  ?straat skos:altLabel ?alt .
+  FILTER (?pref != ?alt)
+} 
+OFFSET 0 LIMIT 10000
+```
+
 ### Haarlem
 
 Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebruikt:
@@ -57,5 +73,12 @@ Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebrui
 - de [kaart van Nautz](https://github.com/mmmenno/nautz) uit 1829
 - de [straatnamenindex op de Puiboeken 1760-1813](https://geneaknowhow.net/script/dewit/haarlem-puiboeken.htm) van Willem Blok
 
+### Leiden
+
+Een bestand met meer dan 2.000 Leidse straatnaamvarianten is [hier](https://github.com/mmmenno/linked-elo/tree/master/straten) te vinden.
+
+### 's-Hertogenbosch
+
+In het [Stratenregister 's-Hertogenbosch](https://github.com/mmmenno/stratenregister-den-bosch) is een [bestand](https://github.com/mmmenno/stratenregister-den-bosch/blob/main/schrijfwijzes/naamvarianten.csv) met zo'n 150 varianten opgenomen)
 
 
