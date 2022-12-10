@@ -43,7 +43,7 @@ SELECT ?item ?itemLabel ?altlabel ?officiallabel ?namelabel ?coords ?startjaar ?
 
 ```
 
-Meer weten over het editen van (historische) gegevens over straten op Wikidata? [Hier](https://github.com/mmmenno/linked-elo/tree/master/straten) leg ik uit hoe je dateringen, vernoemingen en relaties als 'opgegaan in', 'vervangen door' en 'onderdeel van' in Wikidata kunt noteren.
+Meer weten over het editen van (historische) gegevens over straten op Wikidata? [Hier](https://github.com/mmmenno/linked-elo/tree/master/straten) leg ik uit hoe je dateringen, vernoemingen en relaties als 'opgegaan in', 'vervangen door' en 'onderdeel van' in Wikidata kunt noteren. In de meer algemene blog [Van Oude Nieuwstraat tot Onbekendegracht - straatnamen in collectiedata](http://islandsofmeaning.nl/straten-in-collecties/) lees je meer over naamvarianten, maar ook over bijvoorbeeld geometrieën.
 
 ## Straatnamen per plaats
 
