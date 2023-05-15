@@ -73,6 +73,30 @@ Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebrui
 - de [kaart van Nautz](https://github.com/mmmenno/nautz) uit 1829
 - de [straatnamenindex op de Puiboeken 1760-1813](https://geneaknowhow.net/script/dewit/haarlem-puiboeken.htm) van Willem Blok
 
+### Gouda
+De [Gouda Tijdmachine](https://www.goudatijdmachine.nl/) werkt aan een [stratenregister](https://www.goudatijdmachine.nl/data/straten). Hierbij wordt per straat onder meer een unieke identifier (`dcterms:identifier` o.b.v. ARK), de naam (`skos:prefLabel`), alternatieve schrijfwijzen (`skos:altLabel`), geometrie (`geo:asWKT`) en links naar de BAG en Wikidata opgenomen.
+Het stratenregister is onderdeel van de linked data set en kan bevraagt worden via het [(SPARQL-endpoint van de Gouda Tijdmachine](https://www.goudatijdmachine.nl/sparql/):
+
+```
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gtm: <https://www.goudatijdmachine.nl/def#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?straatPid ?prefLabel ?altLabel ?wikiData WHERE{
+    ?straatPid a gtm:Straat .
+    ?straatPid skos:prefLabel ?prefLabel .
+    ?straatPid skos:altLabel ?altLabel .
+    FILTER (CONTAINS(STR(?straat), "ark"))
+    OPTIONAL {
+        ?straatPid owl:sameAs ?wikiData
+        FILTER (CONTAINS(STR(?wikiData), "wikidata"))
+    }
+}
+```
+
+Via de [Datasets pagina](https://www.goudatijdmachine.nl/data/datasets) kan de [Gouda Tijdmachine Linked Open Data](https://www.goudatijdmachine.nl/data/document/ark:/60537/bD64Hu) gedownload worden, als ook de Goudse straten in GeoJSON formaat.
+
 ### Den Haag
 
 De varianten in [den-haag.csv](den-haag.csv) komen uit [Leidse politiedossiers](https://dossier071.hicsuntleones.nl/)
