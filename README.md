@@ -73,6 +73,10 @@ Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebrui
 - de [kaart van Nautz](https://github.com/mmmenno/nautz) uit 1829
 - de [straatnamenindex op de Puiboeken 1760-1813](https://geneaknowhow.net/script/dewit/haarlem-puiboeken.htm) van Willem Blok
 
+### Den Haag
+
+De varianten in [den-haag.csv](den-haag.csv) komen uit [Leidse politiedossiers](https://dossier071.hicsuntleones.nl/)
+
 ### Leiden
 
 Een bestand met meer dan 2.000 Leidse straatnaamvarianten is [hier](https://github.com/mmmenno/linked-elo/tree/master/straten) te vinden.
