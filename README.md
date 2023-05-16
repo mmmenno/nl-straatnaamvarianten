@@ -95,7 +95,7 @@ SELECT ?straatPid ?prefLabel ?altLabel ?wikiData WHERE{
 }
 ```
 
-Via de [Datasets pagina](https://www.goudatijdmachine.nl/data/datasets) kan de [Gouda Tijdmachine Linked Open Data](https://www.goudatijdmachine.nl/data/document/ark:/60537/bD64Hu) gedownload worden, als ook de Goudse straten in GeoJSON formaat.
+Op de [Datasets pagina](https://www.goudatijdmachine.nl/data/datasets) zijn allerlei datasets van de Gouda Tijdmachine terug te vinden, de straten als [turtle](https://n2t.net/ark:/60537/bmRzab) en als [geojson](https://n2t.net/ark:/60537/bSibaB).
 
 ### Den Haag
 
