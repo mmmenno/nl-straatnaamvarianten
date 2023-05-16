@@ -75,7 +75,7 @@ Voor het bestand [haarlem.csv](haarlem.csv) zijn o.a. de volgende bronnen gebrui
 
 ### Gouda
 De [Gouda Tijdmachine](https://www.goudatijdmachine.nl/) werkt aan een [stratenregister](https://www.goudatijdmachine.nl/data/straten). Hierbij wordt per straat onder meer een unieke identifier (`dcterms:identifier` o.b.v. ARK), de naam (`skos:prefLabel`), alternatieve schrijfwijzen (`skos:altLabel`), geometrie (`geo:asWKT`) en links naar de BAG en Wikidata opgenomen.
-Het stratenregister is onderdeel van de linked data set en kan bevraagt worden via het [SPARQL-endpoint van de Gouda Tijdmachine](https://www.goudatijdmachine.nl/sparql/):
+Het stratenregister is onderdeel van de linked data set en kan bevraagt worden via het [SPARQL-endpoint van de Gouda Tijdmachine](https://www.goudatijdmachine.nl/sparql/). Onderstaande query levert alternatieve naamvarianten op, met links naar Wikidata:
 
 ```
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -87,7 +87,7 @@ SELECT ?straatPid ?prefLabel ?altLabel ?wikiData WHERE{
     ?straatPid a gtm:Straat .
     ?straatPid skos:prefLabel ?prefLabel .
     ?straatPid skos:altLabel ?altLabel .
-    FILTER (CONTAINS(STR(?straat), "ark"))
+    FILTER (CONTAINS(STR(?straatPid), "ark"))
     OPTIONAL {
         ?straatPid owl:sameAs ?wikiData
         FILTER (CONTAINS(STR(?wikiData), "wikidata"))
